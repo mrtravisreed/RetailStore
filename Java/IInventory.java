@@ -5,15 +5,13 @@
  * @version 2019-03-25
  */
 public interface IInventory {
-
   /**
    * Adds a new IStockItem to the IInventory.
    *
    * @param stockItem the new IStockItem
    * @throws IllegalStockItemException if the stock item is not a legal type
    */
-  void addStockItem(IStockItem stockItem)
-      throws IllegalStockItemException, AddingExistingStockItemException;
+  void addStockItem(IStockItem stockItem) throws IllegalStockItemException;
 
   /**
    * Calculates and returns the total retail value of all items in the inventory.

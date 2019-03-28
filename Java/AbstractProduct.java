@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * The AbstractProduct abstract class implements the IProduct interface. It keeps track of
  * product information for grocery store inventory systems.
@@ -129,5 +131,45 @@ public abstract class AbstractProduct implements IProduct {
    */
   public void setMinAge(int minAge) {
     this.minAge = minAge;
+  }
+
+  /**
+   * Determines if this is equal to a given object.
+   *
+   * @param other the object to compare to
+   * @return true if equal, false if not
+   */
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) {
+      return true;
+    }
+    if (!(other instanceof AbstractProduct)) {
+      return false;
+    }
+    AbstractProduct that = (AbstractProduct) other;
+    return Double.compare(that.getPrice(), getPrice()) == 0
+        && getMinAge() == that.getMinAge() && Objects.equals(getManufacturer(),
+        that.getManufacturer()) && Objects.equals(getProductName(), that.getProductName());
+  }
+
+  /**
+   * Generates a hash code for this product.
+   *
+   * @return a hashcode
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(getManufacturer(), getProductName(), getPrice(), getMinAge());
+  }
+
+  /**
+   * Returns a String representation of the AbstractProduct.
+   *
+   * @return a String representation of the AbstractProduct
+   */
+  @Override
+  public String toString() {
+    return this.manufacturer + ": " + this.productName;
   }
 }

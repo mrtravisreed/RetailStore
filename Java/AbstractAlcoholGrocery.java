@@ -1,5 +1,3 @@
-package Java;
-
 /**
  * AbstractAlcoholGrocery extends the AbstractGrocery class and keeps track of alcohol items for a
  * supermarket inventory system.

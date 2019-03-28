@@ -47,17 +47,10 @@ public class Inventory implements IInventory{
    * @throws IllegalStockItemException if the stockItem is not a legal type
    */
   @Override
-  public void addStockItem(IStockItem stockItem)
-      throws IllegalStockItemException, AddingExistingStockItemException {
+  public void addStockItem(IStockItem stockItem) throws IllegalStockItemException {
     if (stockItem instanceof GroceryStockItem) {
-      if (this.groceryStock.contains(stockItem)) {
-        throw new AddingExistingStockItemException();
-      }
       this.groceryStock.add((GroceryStockItem) stockItem);
     } else if (stockItem instanceof HouseholdStockItem) {
-      if (this.householdStock.contains(stockItem)) {
-        throw new AddingExistingStockItemException();
-      }
       this.householdStock.add((HouseholdStockItem) stockItem);
     } else {
       throw new IllegalStockItemException();
@@ -71,19 +64,44 @@ public class Inventory implements IInventory{
    */
   @Override
   public double getTotalValue() {
-    return getSumOfValues(groceryStock) + getSumOfValues(householdStock);
+    return sumOfValues(groceryStock) + sumOfValues(householdStock);
   }
 
   /**
    * Helper method to get the sum of values of all stock items in a list.
    *
+   * @param stockItems the list of items to get the value of
    * @return the total value of all stock items in a list.
    */
-  protected <T extends AbstractStockItem> double getSumOfValues(ArrayList<T> stockItems) {
+  protected <T extends AbstractStockItem> double sumOfValues(ArrayList<T> stockItems) {
     double sum = 0;
     for (AbstractStockItem stockItem : stockItems) {
       sum += stockItem.getValue();
     }
     return sum;
+  }
+
+  /**
+   * Finds the quantity of a given product in the Inventory.
+   *
+   * @param product the product to search for
+   * @return the quantity of the given object, 0 if not present
+   */
+  protected int quantityOf(AbstractProduct product) {
+    int quantity = 0;
+    if (product instanceof AbstractGrocery) {
+      for (AbstractStockItem stockItem : this.groceryStock) {
+        if (stockItem.product.equals(product)) {
+          quantity += stockItem.quantity;
+        }
+      }
+    } else if (product instanceof AbstractHousehold) {
+      for (AbstractStockItem stockItem : this.householdStock) {
+        if (stockItem.product.equals(product)) {
+          quantity += stockItem.quantity;
+        }
+      }
+    }
+    return quantity;
   }
 }

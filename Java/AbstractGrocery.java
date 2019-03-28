@@ -1,9 +1,6 @@
-package Java;
-
 /**
  * AbstractGrocery extends the AbstractProduct class and keeps track of grocery items for a
  * supermarket inventory system.
- *
  * @version 2019-03-25
  */
 public abstract class AbstractGrocery extends AbstractProduct {

@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class InventoryTest {
-
   private ArrayList<GroceryStockItem> groceryStock;
   private ArrayList<HouseholdStockItem> householdStock;
   private Salmon salmon;
@@ -56,7 +55,7 @@ public class InventoryTest {
 
 
   @Test
-  public void addStockItemTest() throws IllegalStockItemException, AddingExistingStockItemException {
+  public void addStockItemTest() throws IllegalStockItemException {
     emptyInventory = Inventory.emptyInventory();
     emptyInventory.addStockItem(salmonStock);
     emptyInventory.addStockItem(paperTowelStock);
@@ -64,13 +63,7 @@ public class InventoryTest {
     assertEquals(paperTowelStock, emptyInventory.householdStock.get(0));
   }
 
-  @Test (expected = AddingExistingStockItemException.class)
-  public void addExistingStockItemTest()
-      throws AddingExistingStockItemException, IllegalStockItemException {
-    emptyInventory = Inventory.emptyInventory();
-    emptyInventory.addStockItem(salmonStock);
-    emptyInventory.addStockItem(salmonStock); // Where adding existing stock item
-  }
+
 
   @Test //(expected = IllegalStockItemException.class)
   public void addingIllegalStockItemTest() {
@@ -84,8 +77,15 @@ public class InventoryTest {
 
   @Test
   public void getSumOfValuesTest() {
-    assertEquals(48.89d, inventory.getSumOfValues(inventory.groceryStock), 0.001);
-    assertEquals(88.93d, inventory.getSumOfValues(inventory.householdStock), 0.001);
+    assertEquals(48.89d, inventory.sumOfValues(inventory.groceryStock), 0.001);
+    assertEquals(88.93d, inventory.sumOfValues(inventory.householdStock), 0.001);
+  }
 
+  @Test
+  public void quantifyOfTest() throws IllegalStockItemException {
+    assertEquals(6, inventory.quantityOf(beer));
+    assertEquals(8, inventory.quantityOf(shampoo));
+    inventory.addStockItem(beerStock);
+    assertEquals(12, inventory.quantityOf(beer));
   }
 }

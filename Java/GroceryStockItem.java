@@ -8,7 +8,6 @@ public class GroceryStockItem extends AbstractStockItem {
 
   /**
    * Creates a new stock item with a given AbstractGrocery product and starting quantity.
-   *
    * @param product the IProduct to keep track of
    * @param quantity the starting quantity
    */

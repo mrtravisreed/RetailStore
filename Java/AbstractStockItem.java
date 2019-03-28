@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * AbstractStockItem implements IStockItem interface and is used to keep track of the stock of an
  * IProduct.
@@ -9,7 +11,7 @@ public abstract class AbstractStockItem implements IStockItem {
   /**
    * The product to keep stock of.
    */
-  protected IProduct product;
+  protected AbstractProduct product;
 
   /**
    * The current quantity available of the product.
@@ -59,5 +61,33 @@ public abstract class AbstractStockItem implements IStockItem {
    */
   protected double getValue() {
     return this.quantity * this.product.getPrice();
+  }
+
+  /**
+   * Determines if a given object is equal to the current StockItem.
+   *
+   * @param other to compare to
+   * @return true if equal and false if not
+   */
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) {
+      return true;
+    }
+    if (other == null || getClass() != other.getClass()) {
+      return false;
+    }
+    AbstractStockItem that = (AbstractStockItem) other;
+    return quantity == that.quantity;
+  }
+
+  /**
+   * Returns a hashcode for the current StockItem.
+   *
+   * @return a hashcode
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(quantity);
   }
 }
